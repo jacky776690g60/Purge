@@ -1,4 +1,4 @@
-<h1>Semester Final project for IS597 Data Structures and Algorithms</h1>
+<h2>Final project for IS597 Data Structures and Algorithms</h2>
 
 <h1>Screenshots</h1>
 
