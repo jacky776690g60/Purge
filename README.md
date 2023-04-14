@@ -11,7 +11,7 @@
 
 
 <h1>Introduction</h1>
-<p>This game is inspired by both board games—Pandemic and Monopoly. In this game, players have to work with each other and try to eradicate the diseases in all cities. A player would be either doctor or knight (in current version), and different specialties will have different skills to perform during each turn. The diseases win by spreading to all cities, and occupy more than 50% of the cells in each city (This condition is still in discussion).</p>
+<p>This game is inspired by both board games—Pandemic and Monopoly. In this game, players have to work with each other and try to eradicate the diseases in all cities. A player would be either doctor or knight (in current version), and different specialties will have different skills to perform during each turn. The diseases win by spreading to all cities, and occupy more than 60% of the cells in each city. The players win by curing all diseases.</p>
 
 <h1>Game Rules</h1>
 <h2>Action</h2>
