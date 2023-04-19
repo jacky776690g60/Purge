@@ -195,13 +195,17 @@ class Doctor(MasterPawn):
     def placeNurse(self):
         print("pick a direction to place nurse:")
         selectionDict = {}
-        for i, dir in enumerate(DIRECTIONS_ADJ):
-            print(i, dir)
-            selectionDict[str(i)] = dir
+        i = 0
+        for dir in DIRECTIONS_ADJ:
+            newPos = tuple(map(sum, zip(self.root, dir)))
+            if isType(self.purgeRef.peekCell(*newPos), City):
+                print(f"{i}.", newPos)
+                selectionDict[str(i)] = newPos
+                i += 1
         
         selection = input("Number: ")
         if selection in selectionDict:
-            nursePos = tuple(map(sum, zip(self.root, selectionDict[selection])))
+            nursePos = selectionDict[selection]
             if (self.purgeRef.peekCellBase(*nursePos), City):
                 nurse = Nurse(self.purgeRef, self.root, nursePos)
                 self.purgeRef.putOnMap(nursePos, nurse)
@@ -262,11 +266,12 @@ class Knight(MasterPawn):
     def switchPositionWithDoctor(self):
         knightPos = copy.deepcopy(self.root)
         docPos = copy.deepcopy(self.purgeRef.doctor.root)
-        docRef = self.purgeRef.peekCell(*docPos)
         self.purgeRef.popFromMap(docPos)
         self.purgeRef.popFromMap(knightPos)
-        self.purgeRef.putOnMap(knightPos, docRef)
+        self.purgeRef.putOnMap(knightPos, self.purgeRef.doctor)
         self.purgeRef.putOnMap(docPos, self)
+        self.purgeRef.doctor.root = knightPos
+        self.root = docPos        
 
 
 class Disease(PawnBase):

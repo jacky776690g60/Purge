@@ -29,11 +29,11 @@ treeCh = f"🌲"
 "Tree block character"
 knightCh = f"{TermArtist.BLUE}{'🐴':<{ALIGN-1}}{TermArtist.RESET}"
 "Knight symbol character"
-docCh = f"{TermArtist.MEGANTA}{'✚':<{ALIGN}}{TermArtist.RESET}"
+docCh = f"{'✚':<{ALIGN}}"
 "Doctor symbol character"
 roadCh = f"{'_':<{ALIGN}}"
 "Path symbol character"
-nurseCh = f"{'👩‍⚕️':<{ALIGN}}"
+nurseCh = f"{TermArtist.BLUE}{'✚':<{ALIGN}}{TermArtist.RESET}"
 
 
 # =============================
@@ -269,9 +269,7 @@ class Purge():
         for elem in (cell:=self.map[i][j]).stk:
             if type(elem) == k:
                 cell.directRemove(elem)
-        
-
-
+    
     def roundEnd(self) -> int:
         """Mark the end of a full turn end for the current purge game
             Should be called after each player finish their turn
