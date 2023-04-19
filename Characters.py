@@ -217,11 +217,16 @@ class Nurse(MasterPawnSecondary):
         self.counter = 2
 
     def turnEnd(self):
+        purge = self.purgeRef
         for dir in DIRECTIONS_ALL:
             curePos = tuple(map(sum, zip(self.root, dir)))
             if inBounds(*curePos, self.purgeRef.M, self.purgeRef.N) and\
                 isType(self.purgeRef.peekCellBase(*curePos), City):
-                self.purgeRef.removeTypeFromCell(Disease, *curePos)
+                diseaseSeed: Disease = purge.searchMapAtPos(Disease, *curePos)
+                if diseaseSeed == None: continue
+                purge.diseaseSeeds.remove(diseaseSeed)
+                purge.removeElemFromCell(diseaseSeed, *curePos)
+                purge.map[curePos[0]][curePos[1]].noUpdateCnt += 2
         self.counter -= 1
         if self.counter <= 0:
             self.purgeRef.removeElemFromCell(self, *self.root)

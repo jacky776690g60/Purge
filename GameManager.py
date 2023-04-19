@@ -81,6 +81,7 @@ def actualGame():
             # ========================================
             status = purge.roundEnd()
             print("Game Status:", status)
+            print("Disease Seed Count:", len(purge.diseaseSeeds))
             
             if status == 1:
                 print("you win!")
