@@ -10,6 +10,7 @@ import heapq
 
 if TYPE_CHECKING:
     from Purge import Cell
+    from Characters import Tree
 
 DIRECTIONS_ADJ = [(1,0),(-1,0),(0,1),(0,-1)]
 "Directions difference to adjacent cells, [s, w, d, a]"

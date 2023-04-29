@@ -122,10 +122,12 @@ class Purge():
         "Master character object: knight"
         self.diseaseSeeds: List[Disease] = []
         "All the disease cells in the map"
-        self.cities = self._generateMap()
-        "city objects of the current Purge game"
         self.nurses: List[Nurse] = []
         "A list of all nurses"
+        self.trees: List[Tree] = []
+        "A list of all trees"
+        self.cities = self._generateMap()
+        "city objects of the current Purge game"
         
 
     def _resetToEmptyMap(self):
@@ -228,7 +230,9 @@ class Purge():
         LOGGER.debug("Filling in trees...")
         for i in range(M):
             for j in range(N):
-                if not map[i][j].peek(): map[i][j].putOnTop(Tree(self))
+                tree = Tree(self)
+                self.trees.append(tree)
+                if not map[i][j].peek(): map[i][j].putOnTop(tree)
 
         return cities
 
@@ -270,29 +274,30 @@ class Purge():
             if type(elem) == k:
                 cell.directRemove(elem)
     
-    def roundEnd(self) -> int:
+    def roundEnd(self, actualEnd=True) -> int:
         """Mark the end of a full turn end for the current purge game
             Should be called after each player finish their turn
         ### return
             - bool: win=1, lose=-1, still_playing=0
         """
         overRunCities = set()
-        # ◼︎ processing diseases
-        for city in self.cities:
-            if (seeds:=city.edgeDiseases): # 1st city (capital) no disease at first
-                pickedDisease_seed = random.choice(seeds)
-                pickedDisease_seed.growToAdjacent()
-            if city.getInfectPercentage() > 0.6:
-                overRunCities.add(city)
-            elif city in overRunCities:
-                overRunCities.remove(city)
+        if actualEnd:
+            # ◼︎ processing diseases
+            for city in self.cities:
+                if (seeds:=city.edgeDiseases):
+                    pickedDisease_seed = random.choice(seeds)
+                    pickedDisease_seed.growToAdjacent()
+                if city.getInfectPercentage() > 0.6:
+                    overRunCities.add(city)
+                elif city in overRunCities:
+                    overRunCities.remove(city)
 
-        for row in self.map:
-            for cell in row:
-                cell.turnEnd()
+            for row in self.map:
+                for cell in row:
+                    cell.turnEnd()
 
-        for nurse in self.nurses:
-            if isType(nurse, Nurse): nurse.turnEnd()
+            for nurse in self.nurses:
+                if isType(nurse, Nurse): nurse.turnEnd()
 
         
         
