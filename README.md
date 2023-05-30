@@ -44,7 +44,7 @@
 
 <h1>Used Selected Algorithms</h1>
 <ol>
-    <li><b>A Star Search (Dijkstra's algorithm) </b>is used for connecting city to city. I first find the edge of the city, and randomly picked two positions, one for each city. Then, do an A* search to find the shortest path. </li>
+    <li><b>A Star Search </b>is used for connecting city to city. I first find the edge of the city, and randomly picked two positions, one for each city. Then, do an A* search to find the shortest path. </li>
     <li><b>Union Find</b> is used in multple places. For example, verifying how many random cities has been generated. I am using the most top-left position as the root for each connected cell. </li>
 </ol>
 
